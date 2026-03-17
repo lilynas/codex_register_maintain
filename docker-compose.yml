@@ -1,23 +1,21 @@
 version: "3.9"
 
 services:
-  token-maintain:
+  token_maintain:
     build: .
     container_name: codex_token_maintain
     restart: unless-stopped
     ports:
       - "8000:8000"
     volumes:
-      # config.json, logs, tokens, age key – all in one named volume
+      # Data volume for config, tokens, logs, etc.
       - token_data:/data
+      # To mount your age private key directly from host, uncomment the line below:
+      # - /etc/age/token-sync.key:/data/age.key:ro
     environment:
-      # How often to auto-run (hours). Set to 0 to disable scheduler, 1 = every hour.
       SCHEDULE_HOURS: "1"
       CONFIG_FILE: /data/config.json
       PORT: "8000"
-    # Optional: mount your age private key file directly from the host
-    # volumes:
-    #   - /etc/age/token-sync.key:/data/age.key:ro
 
 volumes:
   token_data:

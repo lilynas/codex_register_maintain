@@ -1,8 +1,7 @@
-version: "3.9"
-
 services:
   token_maintain:
     build: .
+    image: codex_token_maintain
     container_name: codex_token_maintain
     restart: unless-stopped
     ports:

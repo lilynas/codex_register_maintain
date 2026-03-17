@@ -1,22 +1,15 @@
-# ---- Build stage ----
-FROM python:3.12-slim AS builder
-
-WORKDIR /build
-COPY requirements.txt .
-RUN pip install --no-cache-dir --target /build/deps -r requirements.txt
-
-# ---- Runtime stage ----
 FROM python:3.12-slim
 
-# Install age (for decryption)
+# Install age (for decryption) and curl
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends age curl && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copy dependencies from build stage
-COPY --from=builder /build/deps /usr/local/lib/python3.12/site-packages
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY app/ app/

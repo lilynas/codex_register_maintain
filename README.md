@@ -75,7 +75,7 @@ permissions:
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/yourname/codex_register_maintain
+git clone https://github.com/lilynas/codex_register_maintain
 cd codex_register_maintain
 
 # 2. 启动容器
